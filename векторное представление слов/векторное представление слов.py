@@ -12,7 +12,7 @@ word2vec = gensim.models.KeyedVectors.load_word2vec_format(str(model_path), bina
 
 for target in targets:
     if target not in word2vec:
-        raise ValueError(f"Слово {target} отсутствует в модели")
+        raise ValueError(f"Слово {target} отсутствует")
 
 candidates = [
                 "репа", "капуста", "морковь", "свекла", "огурец",
@@ -22,15 +22,14 @@ candidates = [
 words = [
             f"{word}_NOUN"
             for word in candidates
-            if f"{word}_NOUN" in word2vec
-            and f"{word}_NOUN" not in targets
+                if f"{word}_NOUN" in word2vec and f"{word}_NOUN" not in targets
         ]
 
 
 # words = []
 
 # for query in ([targets[0]], [targets[1]], targets):
-#     result = word2vec.most_similar(positive=query, topn=200)
+#     result = word2vec.most_similar(positive=query, topn=600)
 
 #     selected = [
 #          word for word, score in result
