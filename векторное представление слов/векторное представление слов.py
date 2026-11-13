@@ -5,35 +5,26 @@ import gensim
 
 targets = ["картофель_NOUN", "кочерыжка_NOUN"]
 
+candidates = [
+    "репа", "капуста", "морковь", "свекла", "огурец",
+    "брюква", "редька", "кочан", "лук", "тыква"
+]
 
 model_path = Path("cbow.txt")
 
 model = gensim.models.KeyedVectors.load_word2vec_format(str(model_path), binary=False)
 
-words = []
-
-for query in ([targets[0]], [targets[1]], targets):
-    result = model.most_similar(positive=query,  topn=200)
-
-    selected = [
-                word for word, score in result
-                if word.endswith("_NOUN") and word not in targets
-                ][:8]
-
-    for word in selected:
-        if word not in words:
-            words.append(word)
-
-print("Найденные кандидаты:")
-print([word[:-5] for word in words])
-
+words = [
+            f"{word}_NOUN"
+            for word in candidates
+            if f"{word}_NOUN" in model and f"{word}_NOUN" not in targets
+        ]
 
 if not all(target in model for target in targets):
     raise ValueError("В модели отсутствует одно из заданных слов")
 
 found = None
 checks = 0
-
 
 for a, b in combinations(words, 2):
     for c in words:
@@ -42,7 +33,7 @@ for a, b in combinations(words, 2):
 
         checks += 1
 
-        results = model.most_similar(positive=[a, b], negative=[c], topn=100)
+        results = model.most_similar(positive=[a, b], negative=[c],  topn=100)
 
         nouns = [
                     (word, score)
@@ -74,5 +65,5 @@ else:
         print(f"{position:2}. {word[:-5]:16} {score:.5f}")
 
     for target in targets:
-        position = next(i for i, (word, _) in enumerate(nouns, 1) if word == target)
+        position = next(i for i, (word, _) in enumerate(nouns, 1)  if word == target)
         print(f"{target[:-5]}: место {position}")
