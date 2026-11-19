@@ -4,7 +4,7 @@ import gensim
 from pathlib import Path
 from itertools import combinations
 
-targets = ["картофель_NOUN", "кочерыжка_NOUN"]
+targets = ["заноза_NOUN", "кочерыжка_NOUN"]
 
 model_path = Path(__file__).resolve().parent / "cbow.txt"
 
@@ -15,8 +15,10 @@ for target in targets:
         raise ValueError(f"Слово {target} отсутствует")
 
 candidates = [
-                "репа", "капуста", "морковь", "свекла", "огурец",
-                "брюква", "редька", "кочан", "лук", "тыква"
+                "початок", "печенка", "брынза",
+                "репа", "капуста", "морковь", "свекла",
+                "огурец", "брюква", "редька", "кочан",
+                "лук", "тыква"
             ]
 
 words = [
@@ -42,7 +44,7 @@ words = [
 
 # print("Найденные кандидаты:")
 # print([word[:-5] for word in words])
-# print("Количество кандидатов:", len(words))
+# print("Количество:", len(words))
 
 
 found = None
