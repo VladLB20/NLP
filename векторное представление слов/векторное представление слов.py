@@ -31,12 +31,12 @@ words = [
 # words = []
 
 # for query in ([targets[0]], [targets[1]], targets):
-#     result = word2vec.most_similar(positive=query, topn=600)
+#     result = word2vec.most_similar(positive=query, topn=2000)
 
 #     selected = [
 #          word for word, score in result
 #         if word.endswith("_NOUN") and word not in targets
-#     ][:8]
+#     ][:30]
 
 #     for word in selected:
 #         if word not in words:
