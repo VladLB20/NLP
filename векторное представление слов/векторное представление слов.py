@@ -44,7 +44,7 @@ words = [
 
 # print("Найденные кандидаты:")
 # print([word[:-5] for word in words])
-# print("Количество:", len(words))
+# print("Количество кандидатов:", len(words))
 
 
 found = None
